@@ -56,12 +56,23 @@ section h1 {
     margin-left: 15px;
 }
 
+#signsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#signsContainer div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border: 0.1px solid #ccc;
+    width: 500px;
+}
+
 
 #nzsl{
     margin: 10px;
-    flex-wrap: wrap;
-    flex-direction: row;
-
 }
 
 #nzsl div {
@@ -69,7 +80,7 @@ section h1 {
     flex-wrap: wrap;
     flex-direction: row;
     border: 0.1px solid #ccc;
-    width: 500px;
+    
 }
 
 img {

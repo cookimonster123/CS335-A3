@@ -134,21 +134,20 @@ window.onload = checkLoginStatus;
 
 
 // NZSL
-fetch('https://cws.auckland.ac.nz/nzsl/api/AllSigns')
-    .then((response) => {
-        return response.json(); // Parse the response as JSON
-    })
-    .then((signs) => {
-        // Get the container to display the signs
-        const signsContainer = document.getElementById('nzsl');  // section
+// Get the search bar and container elements
+const searchBar = document.getElementById('searchBar');
+const signsContainer = document.getElementById('signsContainer');
 
-        // Use forEach to create and append sign elements to the container
-        signs.forEach(sign => {
-            // TODO: add picture for each sign
-            fetch('https://cws.auckland.ac.nz/nzsl/api/SignImage/' + sign.id)
-            .then(response => {
-                return response.blob();
-            })
+// Function to display signs
+function displaySigns(signs) {
+    // Clear the current signs
+    signsContainer.innerHTML = '';
+
+    // Loop through the signs and display them
+    signs.forEach(sign => {
+        // Fetch and display the image for each sign
+        fetch('https://cws.auckland.ac.nz/nzsl/api/SignImage/' + sign.id)
+            .then(response => response.blob())
             .then(imageBlob => {
                 const imageUrl = URL.createObjectURL(imageBlob);
                 const signDiv = document.createElement('div');
@@ -159,17 +158,53 @@ fetch('https://cws.auckland.ac.nz/nzsl/api/AllSigns')
                 imgElement.alt = sign.id;
                 imgElement.width = 100;
 
-                // Create a div for each sign
+                // Create a div for each sign and append it
                 signDiv.innerHTML = `<strong>${sign.id}: ${sign.description}</strong>`;
                 signDiv.appendChild(imgElement);
                 signsContainer.appendChild(signDiv);
             })
-        });
-    })
-    .catch((error) => {
-        console.error('Error fetching data:', error);
+            .catch(error => console.error('Error fetching sign image:', error));
     });
+}
 
+// searching
+function searchSigns(searchTerm) {
+    // Make a request to the search endpoint with the searchTerm
+    fetch(`https://cws.auckland.ac.nz/nzsl/api/Signs/${searchTerm}`)
+        .then(response => response.json())
+        .then(signs => {
+            displaySigns(signs); // Display the results
+        })
+        .catch(error => console.error('Error fetching search results:', error));
+}
+
+// Event listener for the search bar
+searchBar.addEventListener('input', (event) => {
+    const searchTerm = event.target.value.trim();
+
+    // Only search if there's some input
+    if (searchTerm.length > 0) {
+        searchSigns(searchTerm);
+    } else {
+        // If the search bar is cleared, fetch all signs again
+        fetch('https://cws.auckland.ac.nz/nzsl/api/AllSigns')
+            .then(response => response.json())
+            .then(signs => {
+                displaySigns(signs);
+            })
+            .catch(error => console.error('Error fetching all signs:', error));
+    }
+});
+
+// On page load, fetch and display all signs initially
+fetch('https://cws.auckland.ac.nz/nzsl/api/AllSigns')
+    .then(response => response.json())
+    .then(signs => {
+        displaySigns(signs);
+    })
+    .catch(error => console.error('Error fetching all signs:', error));
+
+    
 // footer in home page
 const dest = document.getElementById("homeFooter");
 const fetchP = fetch('https://cws.auckland.ac.nz/nzsl/api/Version')
