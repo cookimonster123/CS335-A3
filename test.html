@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section id="nzsl">
+
+    </section>
+    <script>
+    const icalString = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//NSDS//EN
+BEGIN:VEVENT
+UID:20240903T010000Z@NZDS
+DTSTAMP:20240903T010000Z
+DTSTART:20240903T010000Z
+DTEND:20240903T020000Z
+TZID:Pacific/Auckland
+SUMMARY:Colours Galore
+DESCRIPTION:This event is to celbrate the colours in our lives. Bring the Whānau and plenty of pastels.
+LOCATION:Ōtāhuhu
+END:VEVENT
+END:VCALENDAR`;
+
+    // Custom function to parse the iCalendar string
+    function parseIcal(icalString) {
+        const lines = icalString.split(/\r?\n/); // Split the string into lines
+        const event = {};
+
+        lines.forEach(line => {
+            const [key, value] = line.split(':', 2); // Split each line by the first colon
+            switch (key) {
+                case 'SUMMARY':
+                    event.summary = value;
+                    break;
+                case 'DESCRIPTION':
+                    event.description = value;
+                    break;
+                case 'DTSTART':
+                    event.startDate = value;
+                    break;
+                case 'DTEND':
+                    event.endDate = value;
+                    break;
+                case 'LOCATION':
+                    event.location = value;
+                    break;
+                case 'TZID':
+                    event.timezone = value;
+                    break;
+            }
+        });
+
+        return event;
+    }
+
+    const parsedEvent = parseIcal(icalString);
+
+    // Displaying the event in the console
+    alert(parsedEvent.description);
+    </script>
+</body>
+</html>

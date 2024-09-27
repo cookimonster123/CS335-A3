@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Learn NZSL</title>
+    <link rel="stylesheet" href="sgua726.css">
+
+    <link rel="icon" href="https://cws.auckland.ac.nz/nzsl/api/Logo">
+    <script src="sgua726.js" defer="defer"></script>
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <div style="display: flex;">
+                <img src="https://cws.auckland.ac.nz/nzsl/api/Logo" 
+                width="100" height="100">
+                </img>
+                <button id="menu1">Home</button>
+                <button id="menu2">Guestbook</button>
+                <button id="menu3">NZSL</button>
+                <button id="menu4">Events</button>
+                <button id="menu5">User Registration</button>
+                <button id="menu6">User Login</button>
+                <button id="menu7">Log Out</button>
+                <div id="loginInfo"></div>
+            </div>
+        </nav>
+    </header>
+
+
+    <section id="home">
+        <h1>Home</h1>
+        <p style="margin-left: 15px;">Welcome to Our New Zealand Sign Language (NZSL) Learning Platform!</p>
+        <footer id="homeFooter" style="margin-left: 15px;"></footer>  
+    </section>
+
+    <section id="guestbook">
+        <h1>Guestbook</h1>  
+        <div id="commentContainer">
+            <p style="font-size: 18px;">Recent Comments:</p>
+            <iframe src="https://cws.auckland.ac.nz/nzsl/api/Comments" frameborder="0" id="comments"></iframe>
+            <br><br><br>
+            <label for="commentInput">Write Your Comment Here:</label><br>
+            <input id="commentInput"
+                style="width: 800px; padding-top: 10px; box-sizing: border-box; line-height: 1.2; text-align: left;">
+            </input>
+            <button id="commentButton">Post Comment</button>
+            <br>
+            <p id="commentMsg" style="color: red;"></p>
+        </div>      
+    </section>
+
+    <section id="nzsl">
+    </section>
+
+    <section id="events">
+        <h1>Events</h1>
+    </section>
+
+    <section id="registration">
+        <h1>Registration</h1>
+        <div id="registerDiv">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username"><br>
+            <br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password"><br>
+            <br>
+
+            <label for="address">Address:</label><br>
+            <input type="text" id="address"><br>
+
+            <p id="regMsg" style="color: red;"></p>
+
+            <button id="regButton">Register</button>
+        </div>
+    </section>
+
+    <section id="login">
+        <h1>Login</h1>
+        <div id="loginDiv">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username_login"><br>
+            <br>
+        
+            <label for="password">Password:</label><br>
+            <input type="password" id="password_login"><br>
+            <br>
+            <p id="loginMsg" style="color: red;"></p>
+            <button id="loginButton">Login</button>
+        </div>
+    </section>
+
+
+
+
+
+    
+</body>
+</html>
