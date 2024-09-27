@@ -96,6 +96,11 @@ const f_login = async () => {
             localStorage.setItem('isLoggedIn', 'true'); // Store login state
             loginInfo.style.color = "black";
             document.getElementById("loginInfo").textContent = `Welcome, ${localStorage.getItem('username')}`;
+
+            // clears the inputs
+            document.getElementById("username_login").value = "";
+            document.getElementById("password_login").value = "";
+
         } else {
             document.getElementById("loginMsg").textContent = `Login Failed, Status Code: ${authResponse.status}`;
         }
@@ -115,6 +120,8 @@ const f_logout = () => {
         document.getElementById("loginInfo").textContent = "Not Logged In";
         document.getElementById("loginMsg").textContent = "";
         // might need to clear username and password in localstorage too
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
     }
 }
 logout.addEventListener("click", f_logout)
@@ -204,7 +211,7 @@ fetch('https://cws.auckland.ac.nz/nzsl/api/AllSigns')
     })
     .catch(error => console.error('Error fetching all signs:', error));
 
-    
+
 // footer in home page
 const dest = document.getElementById("homeFooter");
 const fetchP = fetch('https://cws.auckland.ac.nz/nzsl/api/Version')
@@ -347,12 +354,19 @@ const register = async () => {
             const regText = await regResponse.text();
             if (regText === "Username not available") {
                 document.getElementById("regMsg").textContent = "Username already exists";
+                document.getElementById("password").value = "";
+                 document.getElementById("address").value = "";
             }
             else if (regText === "Invalid username") {
                 document.getElementById("regMsg").textContent = "Invalid username";
+                document.getElementById("password").value = "";
+                 document.getElementById("address").value = "";
             }
              else {
                 document.getElementById("regMsg").textContent = "Registration successful";
+                document.getElementById("username").value = "";
+                document.getElementById("password").value = "";
+                document.getElementById("address").value = "";
             }
         } else {
             const errorData = await regResponse.json();
